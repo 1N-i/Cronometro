@@ -14,11 +14,6 @@
     width: 50%;
     height: 100%;
     background-color: lightgreen;
-    /*
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    */
 }
 
 button {
@@ -27,6 +22,7 @@ button {
     height: 10%;
     border-radius: 20px;
     background-color: rgb(179, 179, 179);
+    font-size: 30px;
 }
 
 button:hover {

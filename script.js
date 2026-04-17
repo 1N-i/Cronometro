@@ -1,10 +1,16 @@
 let hour, minute, second
 hour = minute = second = 0
 const chrono = document.getElementById("time")
+const symbol = document.getElementById("symbol")
 let started = false
 
 function time() {
     started = !started;
+    if (symbol.innerHTML === "▶") {
+        symbol.innerHTML = "⏸"
+    } else {
+        symbol.innerHTML = "▶"
+    }
 }
 
 setInterval(() => {
