@@ -4,20 +4,38 @@
     top: 0;
     width: 50%;
     height: 100%;
-    background-color: green;
+    background-color: rgb(0, 180, 0);
 }
 
-#time {
+#now {
     position: absolute;
     right: 0;
     top: 0;
     width: 50%;
     height: 100%;
     background-color: lightgreen;
+    /*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    */
 }
 
 button {
     position: absolute;
-    right: 0;
-    top: 50;
+    width: 25%;
+    height: 10%;
+    border-radius: 20px;
+    background-color: rgb(179, 179, 179);
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color: lightgray;
+}
+
+button:active {
+    background-color: rgb(163, 163, 163);
+    transform: scale(0.95);
 }
