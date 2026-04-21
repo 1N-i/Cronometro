@@ -1,26 +1,23 @@
-let segundo = Number(localStorage.getItem("segundosSalvos")) || 0;
-let minuto = Number(localStorage.getItem("minutosSalvos")) || 0;
-let hora = Number(localStorage.getItem("horasSalvos")) || 0;
+let segundo = 0, minuto = 0, hora = 0;
 let andando = false;
 
-const chronoDisplay = document.getElementById("time");
+const timeDisplay = document.getElementById("time");
+const allTimeDisplay = document.getElementById("total-display");
 const symbolBtn = document.getElementById("symbol");
 
-//Atualiza o tempo total
-const allTimeDisplay = document.getElementById("total-display");
-const h = hora.toString().padStart(2, "0");
-const m = minuto.toString().padStart(2, "0");
-const s = segundo.toString().padStart(2, "0");
-allTimeDisplay.innerHTML = (hora > 0) ? `${h}:${m}:${s}` : `${m}:${s}`;
+let segundoTotal = Number(localStorage.getItem("segundosSalvos")) || 0;
+let minutoTotal = Number(localStorage.getItem("minutosSalvos")) || 0;
+let horaTotal = Number(localStorage.getItem("horasSalvos")) || 0;
+updateTotalDisplay()
 
 function toggleTimer() {
     andando = !andando;
     symbolBtn.innerHTML = andando ? "⏸" : "▶"; //condição ? valor_se_verdadeiro : valor_se_falso
 
     if (!andando) {
-        localStorage.setItem("segundosSalvos", segundo);
-        localStorage.setItem("minutosSalvos", minuto);
-        localStorage.setItem("horasSalvos", hora);
+        salvarProgresso();
+        updateDisplay();
+        updateTotalDisplay();
     }
 }
 
@@ -39,11 +36,34 @@ setInterval(() => {
     }
 }, 1000);
 
+function salvarProgresso() {
+    segundoTotal += segundo;
+    minutoTotal += minuto;
+    horaTotal += hora;
+
+    localStorage.setItem("segundosSalvos", segundoTotal);
+    localStorage.setItem("minutosSalvos", minutoTotal);
+    localStorage.setItem("horasSalvos", horaTotal);
+    
+    segundo = 0; minuto = 0; hora = 0;
+}
+
 function updateDisplay() {
     const h = hora.toString().padStart(2, "0");
     const m = minuto.toString().padStart(2, "0");
     const s = segundo.toString().padStart(2, "0");
 
-    // Mostra horas apenas se for maior que 0
-    chronoDisplay.innerHTML = (hora > 0) ? `${h}:${m}:${s}` : `${m}:${s}`;
+    timeDisplay.innerHTML = (hora > 0) ? `${h}:${m}:${s}` : `${m}:${s}`;
 }
+
+function updateTotalDisplay() {
+    const h = horaTotal.toString().padStart(2, "0");
+    const m = minutoTotal.toString().padStart(2, "0");
+    const s = segundoTotal.toString().padStart(2, "0");
+
+    allTimeDisplay.innerHTML = (horaTotal > 0) ? `${h}:${m}:${s}` : `${m}:${s}`;
+}
+
+window.addEventListener("beforeunload", (event) => {
+    salvarProgresso();
+});
