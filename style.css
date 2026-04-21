@@ -25,8 +25,13 @@ body, html {
     justify-content: center;
 }
 
-#total-time { background-color: var(--bg-left); }
-#now { background-color: var(--bg-right); }
+#total-time {
+    background-color: var(--bg-left);
+}
+
+#now {
+    background-color: var(--bg-right); 
+}
 
 .display {
     font-size: 4rem;
@@ -43,6 +48,12 @@ button {
     font-size: 1.5rem;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
+}
+
+#restart {
+    position: relative;
+    right: 25%;
+    top: 25%;
 }
 
 button:hover {

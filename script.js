@@ -64,6 +64,15 @@ function updateTotalDisplay() {
     allTimeDisplay.innerHTML = (horaTotal > 0) ? `${h}:${m}:${s}` : `${m}:${s}`;
 }
 
+function restartTimer() {
+    const confirmacao = confirm("Deseja zerar o Cronômetro?");
+    if (confirmacao) {
+        segundoTotal = minutoTotal = horaTotal = 0;
+        salvarProgresso();
+        updateTotalDisplay();
+    }
+}
+
 window.addEventListener("beforeunload", (event) => {
     salvarProgresso();
 });
