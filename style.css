@@ -1,37 +1,55 @@
-#total-time {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    background-color: rgb(0, 180, 0);
+:root { /* Cria as variáveis */
+    --bg-left: #2ecc71;
+    --bg-right: #abebc6;
+    --text-color: #2c3e50;
 }
 
-#now {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 50%;
+body, html {
+    margin: 0;
+    padding: 0;
     height: 100%;
-    background-color: lightgreen;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+}
+
+.container {
+    display: flex; /* Cria duas colunas */
+    height: 100vh;
+}
+
+#total-time, #now {
+    flex: 1; /* Divide o espaço igualmente (50% cada) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#total-time { background-color: var(--bg-left); }
+#now { background-color: var(--bg-right); }
+
+.display {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 20px 0;
 }
 
 button {
-    position: absolute;
-    width: 25%;
-    height: 10%;
-    border-radius: 20px;
-    background-color: rgb(179, 179, 179);
-    font-size: 30px;
+    padding: 15px 40px;
+    border-radius: 50px;
+    border: none;
+    background-color: var(--text-color);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
 button:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-    background-color: lightgray;
+    transform: scale(1.1);
+    background-color: #34495e;
 }
 
 button:active {
-    background-color: rgb(163, 163, 163);
-    transform: scale(0.95);
+    transform: scale(0.9);
 }

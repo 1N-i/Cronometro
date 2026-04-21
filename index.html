@@ -1,21 +1,24 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
     <head>
-        <title>Chronometer</title>
+        <meta charset="UTF-8">
+        <title>Chronometer Study</title>
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <div id="total-time">
-            <a>Total time: </a>
-            <a>00:00</a>
-        </div>
+        <main class="container">
+            <section id="total-time">
+                <h2>Tempo Total</h2>
+                <div class="display" id="total-display">00:00</div>
+            </section>
 
-        <div id="now">
-            <a>Time: </a>
-            <a id="time">00:00</a>
-            <br>
-            <button onclick="time()" id="symbol">▶</button>
-        </div>
+            <section id="now">
+                <h2>Sessão Atual</h2>
+                <div class="display" id="time">00:00</div>
+                <button onclick="toggleTimer()" id="symbol">▶</button>
+            </section>
+        </main>
         
         <script src="script.js"></script>
     </body>
