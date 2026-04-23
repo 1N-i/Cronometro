@@ -5,10 +5,26 @@ const timeDisplay = document.getElementById("time");
 const allTimeDisplay = document.getElementById("total-display");
 const symbolBtn = document.getElementById("symbol");
 
-let segundoTotal = Number(localStorage.getItem("segundosSalvos")) || 0;
-let minutoTotal = Number(localStorage.getItem("minutosSalvos")) || 0;
-let horaTotal = Number(localStorage.getItem("horasSalvos")) || 0;
-updateTotalDisplay()
+let segundoTotalSalvo = Number(localStorage.getItem("segundosSalvos")) || 0;
+let segundoTotal = segundoTotalSalvo;
+let minutoTotal = 0, horaTotal = 0;
+convertTime();
+updateTotalDisplay();
+
+setInterval(() => {
+    if (andando) {
+        segundo += 1;
+        if (segundo >= 60) {
+            segundo -= 60;
+            minuto += 1;
+        } 
+        if (minuto >= 60) {
+            minuto -= 60;
+            hora += 1;
+        }
+        updateDisplay();
+    }
+}, 1000);
 
 function toggleTimer() {
     andando = !andando;
@@ -21,53 +37,45 @@ function toggleTimer() {
     }
 }
 
-setInterval(() => {
-    if (andando) {
-        segundo += 1;
-        if (segundo >= 60) {
-            segundo = 0;
-            minuto += 1;
-        } 
-        if (minuto >= 60) {
-            minuto = 0;
-            hora += 1;
-        }
-        updateDisplay();
-    }
-}, 1000);
-
 function salvarProgresso() {
-    segundoTotal += segundo;
-    minutoTotal += minuto;
-    horaTotal += hora;
-
-    localStorage.setItem("segundosSalvos", segundoTotal);
-    localStorage.setItem("minutosSalvos", minutoTotal);
-    localStorage.setItem("horasSalvos", horaTotal);
-    
+    segundoTotalSalvo += segundo + (minuto * 60) + (hora * 3600);
+    localStorage.setItem("segundosSalvos", segundoTotalSalvo);
+    convertTime();
     segundo = 0; minuto = 0; hora = 0;
+}
+
+function convertTime() {
+    segundoTotal = segundoTotalSalvo;
+    minutoTotal = 0, horaTotal = 0;
+    while (segundoTotal >= 60){
+        segundoTotal -= 60;
+        minutoTotal += 1;
+    }
+    while (minutoTotal >= 60){
+        minutoTotal -= 60;
+        horaTotal += 1;
+    }
 }
 
 function updateDisplay() {
     const h = hora.toString().padStart(2, "0");
     const m = minuto.toString().padStart(2, "0");
     const s = segundo.toString().padStart(2, "0");
-
     timeDisplay.innerHTML = (hora > 0) ? `${h}:${m}:${s}` : `${m}:${s}`;
 }
 
 function updateTotalDisplay() {
+    convertTime();
     const h = horaTotal.toString().padStart(2, "0");
     const m = minutoTotal.toString().padStart(2, "0");
     const s = segundoTotal.toString().padStart(2, "0");
-
     allTimeDisplay.innerHTML = (horaTotal > 0) ? `${h}:${m}:${s}` : `${m}:${s}`;
 }
 
 function restartTimer() {
     const confirmacao = confirm("Deseja zerar o Cronômetro?");
     if (confirmacao) {
-        segundoTotal = minutoTotal = horaTotal = 0;
+        segundoTotalSalvo = 0;
         salvarProgresso();
         updateTotalDisplay();
     }
